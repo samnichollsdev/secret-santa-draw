@@ -1,0 +1,225 @@
+/* Secret Santa — festive night theme, built with Tailwind. */
+@import 'tailwindcss';
+
+@theme {
+  --color-pine-900: #0b231a;
+  --color-pine-800: #0f2e22;
+  --color-pine-700: #164231;
+  --color-pine-500: #1f7a4d;
+  --color-berry: #c8102e;
+  --color-berry-dark: #9c0b23;
+  --color-berry-shadow: #6e0718;
+  --color-gold: #e8c15a;
+  --color-gold-light: #ffe7a3;
+  --color-cream: #f6efe1;
+  --color-parchment: #e2d6bd;
+  /* The browser's own placeholder grey, which Tailwind's reset would lighten. */
+  --color-placeholder: #757575;
+  --color-rule: #dccfb3;
+  --color-ink: #2b1d14;
+  --color-ink-soft: #6d5a4a;
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-script: 'Great Vibes', 'Brush Script MT', cursive;
+  --font-body: 'Lato', system-ui, -apple-system, sans-serif;
+
+  --shadow-card: 0 20px 50px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(232, 193, 90, 0.6);
+  --shadow-dialog: 0 24px 60px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(232, 193, 90, 0.6);
+  /* Buttons are a solid colour, with depth from the inset shadow, so contrast
+     checkers can measure the text against them. */
+  --shadow-button:
+    inset 0 -14px 16px -8px var(--color-berry-dark), 0 3px 0 var(--color-berry-shadow);
+  --shadow-button-pressed:
+    inset 0 -14px 16px -8px var(--color-berry-dark), 0 1px 0 var(--color-berry-shadow);
+  --shadow-ghost: inset 0 0 0 2px var(--color-pine-500);
+  --shadow-name-card: 0 14px 40px rgba(0, 0, 0, 0.45), inset 0 0 0 2px var(--color-gold);
+  --shadow-gift-box: inset 0 -12px 20px rgba(0, 0, 0, 0.2), 0 18px 30px rgba(0, 0, 0, 0.45);
+  --shadow-gift-lid: 0 6px 10px rgba(0, 0, 0, 0.3);
+
+  --text-shadow-glow: 0 0 28px rgba(232, 193, 90, 0.35);
+
+  --animate-snowfall: snowfall 10s linear infinite;
+  --animate-pop: pop 0.25s ease-out;
+  --animate-fade-up: fade-up 0.6s 1.2s both;
+  --animate-wiggle: wiggle 2.6s ease-in-out infinite;
+  --animate-shake: shake 0.9s ease-in both;
+  --animate-lid-off: lid-off 0.9s cubic-bezier(0.2, 0.7, 0.3, 1) forwards;
+  --animate-rise: rise 1s 0.25s cubic-bezier(0.18, 0.9, 0.3, 1.25) forwards;
+  --animate-glow: glow 2s 0.6s ease-in-out infinite alternate;
+  --animate-burst: burst 2.4s cubic-bezier(0.15, 0.6, 0.35, 1) forwards;
+
+  @keyframes snowfall {
+    to {
+      transform: translate(var(--drift), 105vh);
+    }
+  }
+
+  @keyframes pop {
+    from {
+      transform: scale(0.6);
+      opacity: 0;
+    }
+  }
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+  }
+
+  /* Idle: a hopeful little wiggle */
+  @keyframes wiggle {
+    0%,
+    70%,
+    100% {
+      transform: rotate(0);
+    }
+    76% {
+      transform: rotate(-5deg) translateY(-6px);
+    }
+    82% {
+      transform: rotate(5deg) translateY(-6px);
+    }
+    88% {
+      transform: rotate(-3deg);
+    }
+    94% {
+      transform: rotate(2deg);
+    }
+  }
+
+  /* Shaking: excitement builds */
+  @keyframes shake {
+    0% {
+      transform: translate(0) rotate(0);
+    }
+    10% {
+      transform: translate(-4px, 0) rotate(-4deg);
+    }
+    20% {
+      transform: translate(4px, -2px) rotate(4deg);
+    }
+    30% {
+      transform: translate(-6px, 0) rotate(-6deg);
+    }
+    40% {
+      transform: translate(6px, -3px) rotate(6deg);
+    }
+    50% {
+      transform: translate(-8px, 0) rotate(-7deg);
+    }
+    60% {
+      transform: translate(8px, -4px) rotate(7deg);
+    }
+    70% {
+      transform: translate(-8px, 0) rotate(-8deg);
+    }
+    80% {
+      transform: translate(8px, -6px) rotate(8deg);
+    }
+    90% {
+      transform: scale(1.08, 0.9) translateY(6px);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  /* Open: the lid flies off… */
+  @keyframes lid-off {
+    0% {
+      transform: translate(0, 0) rotate(0);
+    }
+    40% {
+      transform: translate(-40px, -120px) rotate(-25deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-220px, 60px) rotate(-120deg);
+      opacity: 0;
+    }
+  }
+
+  /* …the name rises out… */
+  @keyframes rise {
+    0% {
+      opacity: 1;
+      transform: translate(-50%, 40px) scale(0.5);
+    }
+    100% {
+      opacity: 1;
+      transform: translate(-50%, -200px) scale(1);
+    }
+  }
+
+  /* …and the box settles and glows. */
+  @keyframes glow {
+    to {
+      box-shadow:
+        inset 0 -12px 20px rgba(0, 0, 0, 0.2),
+        0 0 50px rgba(232, 193, 90, 0.55);
+    }
+  }
+
+  @keyframes burst {
+    0% {
+      opacity: 1;
+      transform: translate(0, 0) rotate(0);
+    }
+    45% {
+      opacity: 1;
+      transform: translate(var(--x), var(--y)) rotate(var(--r));
+    }
+    100% {
+      opacity: 0;
+      transform: translate(calc(var(--x) * 1.15), calc(var(--y) + 520px)) rotate(calc(var(--r) * 2));
+    }
+  }
+}
+
+/* Backgrounds too detailed for one-off arbitrary values. */
+@utility bg-page {
+  background:
+    radial-gradient(ellipse at top, rgba(232, 193, 90, 0.12), transparent 60%),
+    radial-gradient(ellipse at bottom, var(--color-pine-700), var(--color-pine-900) 70%);
+  background-color: var(--color-pine-900);
+  background-attachment: fixed;
+}
+
+@utility bg-candy-stripe {
+  background: repeating-linear-gradient(-45deg, var(--color-berry) 0 10px, white 10px 20px);
+}
+
+@utility bg-berry-gloss {
+  background: radial-gradient(circle at 35% 35%, #ff5a6e, var(--color-berry) 60%);
+}
+
+@utility bg-bow-knot {
+  background: linear-gradient(var(--color-gold-light), var(--color-gold));
+}
+
+@utility bg-gift-box {
+  background:
+    linear-gradient(90deg, transparent 42%, var(--color-gold) 42% 58%, transparent 58%),
+    linear-gradient(160deg, #e0263f, var(--color-berry) 45%, var(--color-berry-dark));
+}
+
+@utility bg-gift-lid {
+  background:
+    linear-gradient(90deg, transparent 42%, var(--color-gold) 42% 58%, transparent 58%),
+    linear-gradient(170deg, #ee3550, var(--color-berry) 60%, var(--color-berry-dark));
+}
+
+/* Little white polka dots on the wrapping paper, skipping the ribbon. */
+@utility bg-gift-dots {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.25) 2px, transparent 2.5px);
+  background-size: 22px 22px;
+  mask: linear-gradient(90deg, black 42%, transparent 42% 58%, black 58%);
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "name": "secret-santa-draw",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "bun --bun vite",
+    "build": "tsc -b && bun --bun vite build",
+    "typecheck": "tsc -b",
+    "lint": "biome check . && oxlint && bun scripts/check-tailwind.ts",
+    "preview": "bun --bun vite preview",
+    "lint:fix": "bun scripts/check-tailwind.ts --fix && biome check --write .",
+    "format": "biome format --write .",
+    "test": "bun --bun vitest run",
+    "test:e2e": "bun --bun playwright test"
+  },
+  "dependencies": {
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "@biomejs/biome": "2.6.3",
+    "@playwright/test": "^1.64.1",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^26.6.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "oxlint": "^1.88.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.4",
+    "vitest": "^5.0.5",
+    "wrangler": "^4.153.0"
+  }
+}

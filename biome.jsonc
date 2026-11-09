@@ -1,0 +1,109 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.6.3/schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "includes": ["**", "!!**/dist", "!!**/.wrangler"]
+  },
+  // Matches CODING_STANDARDS.md: 2 spaces, single quotes, no semicolons, trailing commas.
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 100
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "jsxQuoteStyle": "double",
+      "semicolons": "asNeeded",
+      "trailingCommas": "all",
+      "arrowParentheses": "always"
+    }
+  },
+  "css": {
+    // Understand Tailwind's @theme, @utility and @apply in src/index.css.
+    "parser": {
+      "tailwindDirectives": true
+    },
+    "formatter": {
+      "quoteStyle": "single"
+    }
+  },
+  // Where Biome's Tailwind rules find the theme and the class strings to check.
+  "tailwind": {
+    "stylesheet": "./src/index.css",
+    "mergeFunctions": ["cn"]
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "preset": "recommended",
+      // Code smells on top of the recommended set.
+      "complexity": {
+        "noExcessiveCognitiveComplexity": {
+          "level": "warn",
+          "options": { "maxAllowedComplexity": 15 }
+        },
+        "noUselessFragments": "error"
+      },
+      "correctness": {
+        "noUnusedVariables": "error",
+        "noUnusedImports": "error",
+        "useExhaustiveDependencies": "error",
+        "useHookAtTopLevel": "error"
+      },
+      "style": {
+        "noNonNullAssertion": "warn",
+        "noParameterAssign": "error",
+        "useConst": "error",
+        "useImportType": "error",
+        "useConsistentArrayType": {
+          "level": "error",
+          "options": { "syntax": "shorthand" }
+        },
+        "useConsistentTypeDefinitions": {
+          "level": "error",
+          "options": { "style": "type" }
+        }
+      },
+      "nursery": {
+        // Tailwind: keep classes in Tailwind's order, merge pairs that have a
+        // shorthand (w-4 h-4 → size-4), use the old names' replacements, and
+        // only use theme colours. Their fixes are marked safe so
+        // bun run lint:fix applies them. scripts/check-tailwind.ts covers
+        // canonical forms (right-[18px] → right-4.5), which Biome doesn't.
+        "useTailwindSortedClasses": { "level": "error", "fix": "safe" },
+        "useTailwindShorthandClasses": { "level": "error", "fix": "safe" },
+        "noTailwindLegacyUtilities": { "level": "error", "fix": "safe" },
+        "noTailwindRawColors": "error"
+      },
+      "suspicious": {
+        // Some in-app browsers silently cancel native pop-ups. Use ConfirmDialog.
+        "noAlert": "error",
+        "noDeprecatedImports": "error",
+        "noConsole": "warn",
+        "noExplicitAny": "error",
+        "noEmptyBlockStatements": "error"
+      }
+    }
+  },
+  "overrides": [
+    {
+      // Command-line scripts report by printing.
+      "includes": ["scripts/**"],
+      "linter": { "rules": { "suspicious": { "noConsole": "off" } } }
+    }
+  ],
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  }
+}
