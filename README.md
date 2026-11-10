@@ -76,7 +76,7 @@ to cheat. Keeping it truly secret would need a server to hold the results.
 1. Clone the repository and go into it:
 
    ```bash
-   git clone git@github.com:samnichollscodes/secret-santa-draw.git
+   git clone git@github.com:samnichollsdev/secret-santa-draw.git
    cd secret-santa-draw
    ```
 
